@@ -5,7 +5,13 @@
 			:date-data="dateData"
 			className="theme-default"
 			@show-date-change="setShowDate"
-		/>
+		>
+			<calendar-view-header
+					slot="header"
+					slot-scope="t"
+					:header-props="t.headerProps"
+					@input="setShowDate" />
+		</calendar-view>
 		
   </div>
 </template>
@@ -26,113 +32,54 @@ export default {
 			dateData: {
 				'2019-01-01': {
 					'className': 'medium',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
 				},
 				'2019-01-02': {
 					'className': 'medium',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
 				},
 				'2019-01-03': {
 					'className': 'low',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
 				},
 				'2019-01-04': {
 					'className': 'low',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					},
 					'booking': true
 				},
 				'2019-01-05': {
 					'className': 'high',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
+					
 				},
 				'2019-01-06': {
 					'className': 'medium',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
 				},
 				'2019-01-07': {
 					'className': 'medium',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
 				},
 				'2019-01-08': {
 					'className': 'medium',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
 				},
 				'2019-01-09': {
 					'className': 'medium',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
 				},
 				'2019-01-10': {
 					'className': 'low',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					},
 					'rate': '£ Low'
 				},
 				'2019-01-11': {
 					'className': 'low',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					},
 					'rate': '£ Low',
 					'booking': true
 				},
 				'2019-01-12': {
 					'className': 'high',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					},
 					'rate': '£ High'
 				},
 				'2019-01-13': {
 					'className': 'medium',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
 				},
 				'2019-01-14': {
-					'className': 'medium',
-					'weather': {
-						'icon': 'sun',
-						'text': '22°'
-					}
+					'className': 'medium'
 				},
 				'2019-01-15': {
-					'className': 'medium',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
+					'className': 'medium'
 				},
 				'2019-01-16': {
 					'className': 'high',
@@ -241,11 +188,7 @@ export default {
 					}
 				},
 				'2019-01-31': {
-					'className': 'low',
-					'weather': {
-						'icon': 'cloud-rain',
-						'text': '64%'
-					}
+					'className': 'low'
 				},
 			}
 			}

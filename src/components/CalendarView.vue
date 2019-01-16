@@ -571,12 +571,14 @@ header are in the CalendarViewHeader component.
 }
 
 .cv-header-days {
-	display: flex;
+	/* display: flex; */
 	flex-grow: 0;
 	flex-shrink: 0;
 	flex-basis: auto;
 	flex-flow: row nowrap;
 	border-width: 0 0 0 1px;
+
+	display: none;
 }
 
 .cv-header-day {
@@ -657,8 +659,8 @@ header are in the CalendarViewHeader component.
 	margin: 0;
 }
 
-.cv-day .outsideOfMonth {
-	background-color: #fff;
+.cv-day.outsideOfMonth {
+	background-color: #fff !important;
 }
 
 .cv-day.outsideOfMonth div {
