@@ -51,7 +51,7 @@
 							last: isLastDayOfMonth(day),
 							lastInstance: isLastInstanceOfMonth(day)
 						},
-						...((dateClasses && dateClasses[isoYearMonthDay(day)]) || null)
+						getDayClass(isoYearMonthDay(day))
 					]"
 					@click="onClickDay(day)"
 					@drop.prevent="onDrop(day, $event)"
@@ -59,7 +59,25 @@
 					@dragenter.prevent="onDragEnter(day, $event)"
 					@dragleave.prevent="onDragLeave(day, $event)"
 				>
-					<div class="cv-day-number">{{ day.getDate() }}</div>
+					<div class="cv-day-number">
+						<p class="cv-day-name">{{ day.toString().split(' ')[0] }}</p>
+						{{ day.getDate() }}
+						
+						</div>
+
+					<div class="cv-weather" v-if="(dateData[isoYearMonthDay(day)] && dateData[isoYearMonthDay(day)].weather)">
+						<i :class="`fa fa-${dateData[isoYearMonthDay(day)].weather.icon}`"></i>
+						<small>{{ dateData[isoYearMonthDay(day)].weather.text }}</small>
+					</div>
+
+					<div class="cv-rate" v-if="(dateData[isoYearMonthDay(day)] && dateData[isoYearMonthDay(day)].rate)">
+						<span>{{ dateData[isoYearMonthDay(day)].rate }}</span>
+					</div>
+
+					<div class="cv-booking" v-if="(dateData[isoYearMonthDay(day)] && dateData[isoYearMonthDay(day)].booking)">
+						<i class="fa fa-ticket-alt"></i>
+					</div>
+
 					<slot :day="day" name="dayContent"/>
 				</div>
 				<template v-for="e in getWeekEvents(weekStart)">
@@ -109,7 +127,7 @@ export default {
 		enableDragDrop: { type: Boolean, default: false },
 		startingDayOfWeek: { type: Number, default: 0 },
 		events: { type: Array, default: () => [] },
-		dateClasses: { type: Object, default: () => {} },
+		dateData: { type: Object, default: () => {} },
 		eventTop: { type: String, default: "1.4em" },
 		eventContentHeight: { type: String, default: "1.4em" },
 		eventBorderHeight: { type: String, default: "2px" },
@@ -326,6 +344,12 @@ export default {
 		*/
 		getColumnDOWClass(dayIndex) {
 			return "dow" + ((dayIndex + this.startingDayOfWeek) % 7)
+		},
+		
+		getDayClass(day) {
+			if (this.dateData[day] && this.dateData[day]['className']) {
+				return this.dateData[day]['className'];
+			}
 		},
 
 		// ******************************
@@ -544,7 +568,6 @@ header are in the CalendarViewHeader component.
 .cv-wrapper div {
 	box-sizing: border-box;
 	line-height: 1em;
-	font-size: 1em;
 }
 
 .cv-header-days {
@@ -610,6 +633,48 @@ header are in the CalendarViewHeader component.
 	position: sticky; /* When week's events are scrolled, keep the day content fixed */
 	top: 0;
 	border-width: 1px 1px 0 0;
+	padding: 5px;
+}
+
+
+.cv-day.today:before {
+	content: '';
+    height: 45px;
+    width: 30px;
+    position: absolute;
+    background-color: #177ef4;
+    top: 0px;
+    z-index: -1;
+    border-radius: 0 0 5px 5px;
+}
+
+.cv-day.today .cv-day-number {
+	color: #fff;
+}
+
+.cv-day .cv-day-name {
+	font-size: 12px;
+	margin: 0;
+}
+
+.cv-day .outsideOfMonth {
+	background-color: #fff;
+}
+
+.cv-day.outsideOfMonth div {
+	opacity: 0.3;
+}
+
+.cv-day.high {
+	background-color: #db4d59;
+}
+
+.cv-day.medium {
+	background-color: #ffa35a;
+}
+
+.cv-day.low {
+	background-color: #38b283;
 }
 
 /* 
@@ -673,6 +738,11 @@ _:-ms-lang(x),
 .cv-day-number,
 .cv-event {
 	padding: 0.2em;
+}
+
+.cv-day-number {
+	color: #003b81;
+	font-weight: bold;
 }
 
 /* Allows emoji icons or labels (such as holidays) to be added more easily to specific dates by having the margin set already. */
@@ -749,4 +819,42 @@ _:-ms-lang(x),
 	width: 0; /* remove scrollbar space */
 	background: transparent; /* optional: just make scrollbar invisible */
 }
+
+
+/* Weather Icons */
+.cv-weather {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+	color: #fff;
+	text-align: center;
+}
+
+.cv-weather .fa {
+	display: block;
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+
+/* Rate Text */
+.cv-rate {
+	color: #fff;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	font-size: 14px;
+}
+
+/* Ticket icon */
+.cv-booking {
+	color: #fff;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	font-size: 30px;
+	transform: rotate(-45deg);
+}
+
+
 </style>
