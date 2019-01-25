@@ -2,7 +2,7 @@
   <div id="app">
 	  <h1>Hello</h1>
 
-	  <input type="text" v-model="date" @change="setShowDate(date)" />
+		<datepicker v-model="showDate" :value="showDate" minimum-view="month" @change="setShowDate"></datepicker>
 
 	  <hr />
 
@@ -20,15 +20,16 @@
 
 <script>
 import CalendarView from "./components/CalendarView.vue"
+import Datepicker from 'vuejs-datepicker'
 
 export default {
 	name: "CalendarDemoApp",
 	components: {
 		CalendarView,
+		Datepicker
 	},
 	data: function() {
 		return { 
-			date: new Date(),
 			showDate: new Date(),
 			dateData: {
 				'2019-01-01': {
@@ -195,8 +196,8 @@ export default {
 			}
 	},
 	methods: {
-		setShowDate(d) {
-			const dt = new Date(d);
+		setShowDate() {
+			const dt = new Date(this.showDate)
 			this.showDate = dt
 		},
 	},
