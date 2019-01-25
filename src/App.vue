@@ -1,33 +1,34 @@
 <template>
   <div id="app">
-		<calendar-view
+	  <h1>Hello</h1>
+
+	  <input type="text" v-model="date" @change="setShowDate(date)" />
+
+	  <hr />
+
+	  <div class="calendar">
+		  <calendar-view
 			:show-date="showDate"
 			:date-data="dateData"
 			className="theme-default"
 			@show-date-change="setShowDate"
 		>
-			<calendar-view-header
-					slot="header"
-					slot-scope="t"
-					:header-props="t.headerProps"
-					@input="setShowDate" />
 		</calendar-view>
-		
+	  </div>		
   </div>
 </template>
 
 <script>
 import CalendarView from "./components/CalendarView.vue"
-import CalendarViewHeader from "./components/CalendarViewHeader.vue"
 
 export default {
 	name: "CalendarDemoApp",
 	components: {
 		CalendarView,
-		CalendarViewHeader,
 	},
 	data: function() {
 		return { 
+			date: new Date(),
 			showDate: new Date(),
 			dateData: {
 				'2019-01-01': {
@@ -195,7 +196,8 @@ export default {
 	},
 	methods: {
 		setShowDate(d) {
-			this.showDate = d
+			const dt = new Date(d);
+			this.showDate = dt
 		},
 	},
 }
@@ -205,7 +207,7 @@ export default {
 @import "../static/css/default.css";
 @import "../static/css/holidays-us.css";
 
-div#app {
+.calendar {
 	display: flex;
 	height: 80vh;
 	width: 80vw;
