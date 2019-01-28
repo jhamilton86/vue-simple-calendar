@@ -2,18 +2,34 @@
   <div id="app">
 	  <h1>Hello</h1>
 
-		<datepicker v-model="showDate" :value="showDate" minimum-view="month" @change="setShowDate"></datepicker>
+		<datepicker
+			v-model="showDate" 
+			:minimum-view="calendarDisplayPeriod == 'week' ? 'day' : calendarDisplayPeriod" 
+			:maximum-view="calendarDisplayPeriod == 'week' ? 'day' : calendarDisplayPeriod" 
+			@change="setShowDate"
+			:format="calendarDisplayPeriod == 'week' ? 'dd MMMM yyyy' : 'MMMM yyyy'"
+		></datepicker>
+
+		<select name="calendar-date-period" v-model="calendarDisplayPeriod">
+			<option value="month">Month</option>
+			<option value="week">Week</option>
+		</select>
+
+		<p v-if="selectedDate">
+			You have selected {{ this.selectedDate }}
+		</p>
 
 	  <hr />
 
 	  <div class="calendar">
-		  <calendar-view
+		<calendar-view
 			:show-date="showDate"
 			:date-data="dateData"
 			className="theme-default"
 			@show-date-change="setShowDate"
-		>
-		</calendar-view>
+			@click-date="setSelectedDate"
+			:display-period-uom="this.calendarDisplayPeriod"
+		></calendar-view>
 	  </div>		
   </div>
 </template>
@@ -31,6 +47,8 @@ export default {
 	data: function() {
 		return { 
 			showDate: new Date(),
+			selectedDate: false,
+			calendarDisplayPeriod: 'month',
 			dateData: {
 				'2019-01-01': {
 					'className': 'medium',
@@ -200,6 +218,9 @@ export default {
 			const dt = new Date(this.showDate)
 			this.showDate = dt
 		},
+		setSelectedDate(d) {
+			this.selectedDate = new Date(d)
+		}
 	},
 }
 </script>

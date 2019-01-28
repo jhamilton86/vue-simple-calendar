@@ -330,6 +330,8 @@ export default {
 		onClickDay(day) {
 			if (this.disablePast && this.isInPast(day)) return
 			if (this.disableFuture && this.isInFuture(day)) return
+
+			console.log(day);
 			this.$emit("click-date", day)
 		},
 
