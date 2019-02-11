@@ -4,16 +4,13 @@
 
 		<datepicker
 			v-model="showDate" 
-			:minimum-view="calendarDisplayPeriod == 'week' ? 'day' : calendarDisplayPeriod" 
-			:maximum-view="calendarDisplayPeriod == 'week' ? 'day' : calendarDisplayPeriod" 
+			minimum-view="month" 
+			maximum-view="month" 
 			@change="setShowDate"
-			:format="calendarDisplayPeriod == 'week' ? 'dd MMMM yyyy' : 'MMMM yyyy'"
+			format="MMMM yyyy"
 		></datepicker>
 
-		<select name="calendar-date-period" v-model="calendarDisplayPeriod">
-			<option value="month">Month</option>
-			<option value="week">Week</option>
-		</select>
+		<button @click="show4Weeks()">Show 4 Week View</button>
 
 		<p v-if="selectedDate">
 			You have selected {{ this.selectedDate }}
@@ -29,6 +26,7 @@
 			@show-date-change="setShowDate"
 			@click-date="setSelectedDate"
 			:display-period-uom="this.calendarDisplayPeriod"
+			:display-period-count="this.calendarDisplayPeriod == 'week' ? 4 : 1"
 		></calendar-view>
 	  </div>		
   </div>
@@ -48,74 +46,74 @@ export default {
 		return { 
 			showDate: new Date(),
 			selectedDate: false,
-			calendarDisplayPeriod: 'month',
+			calendarDisplayPeriod: 'week',
 			dateData: {
-				'2019-01-01': {
+				'2019-02-01': {
 					'className': 'medium',
 				},
-				'2019-01-02': {
+				'2019-02-02': {
 					'className': 'medium',
 				},
-				'2019-01-03': {
+				'2019-02-03': {
 					'className': 'low',
 				},
-				'2019-01-04': {
+				'2019-02-04': {
 					'className': 'low',
 					'booking': true
 				},
-				'2019-01-05': {
+				'2019-02-05': {
 					'className': 'high',
 					
 				},
-				'2019-01-06': {
+				'2019-02-06': {
 					'className': 'medium',
 				},
-				'2019-01-07': {
+				'2019-02-07': {
 					'className': 'medium',
 				},
-				'2019-01-08': {
+				'2019-02-08': {
 					'className': 'medium',
 				},
-				'2019-01-09': {
+				'2019-02-09': {
 					'className': 'medium',
 				},
-				'2019-01-10': {
+				'2019-02-10': {
 					'className': 'low',
 					'rate': '£ Low'
 				},
-				'2019-01-11': {
+				'2019-02-11': {
 					'className': 'low',
 					'rate': '£ Low',
 					'booking': true
 				},
-				'2019-01-12': {
+				'2019-02-12': {
 					'className': 'high',
 					'rate': '£ High'
 				},
-				'2019-01-13': {
+				'2019-02-13': {
 					'className': 'medium',
 				},
-				'2019-01-14': {
+				'2019-02-14': {
 					'className': 'medium'
 				},
-				'2019-01-15': {
+				'2019-02-15': {
 					'className': 'medium'
 				},
-				'2019-01-16': {
+				'2019-02-16': {
 					'className': 'high',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-17': {
+				'2019-02-17': {
 					'className': 'low',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-18': {
+				'2019-02-18': {
 					'className': 'low',
 					'weather': {
 						'icon': 'cloud-rain',
@@ -123,91 +121,91 @@ export default {
 					},
 					'booking': true
 				},
-				'2019-01-19': {
+				'2019-02-19': {
 					'className': 'high',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-20': {
+				'2019-02-20': {
 					'className': 'medium',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-21': {
+				'2019-02-21': {
 					'className': 'medium',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-22': {
+				'2019-02-22': {
 					'className': 'medium',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-23': {
+				'2019-02-23': {
 					'className': 'medium',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-24': {
+				'2019-02-24': {
 					'className': 'low',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-25': {
+				'2019-02-25': {
 					'className': 'low',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-26': {
+				'2019-02-26': {
 					'className': 'high',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-27': {
+				'2019-02-27': {
 					'className': 'medium',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-28': {
+				'2019-02-28': {
 					'className': 'medium',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-29': {
+				'2019-03-01': {
 					'className': 'medium',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-30': {
+				'2019-03-02': {
 					'className': 'medium',
 					'weather': {
 						'icon': 'cloud-rain',
 						'text': '64%'
 					}
 				},
-				'2019-01-31': {
+				'2019-03-03': {
 					'className': 'low'
 				},
 			}
@@ -216,10 +214,15 @@ export default {
 	methods: {
 		setShowDate() {
 			const dt = new Date(this.showDate)
+			this.calendarDisplayPeriod = 'month'
 			this.showDate = dt
 		},
 		setSelectedDate(d) {
 			this.selectedDate = new Date(d)
+		},
+		show4Weeks(d) {
+			this.calendarDisplayPeriod = 'week'
+			this.showDate = new Date()
 		}
 	},
 }
