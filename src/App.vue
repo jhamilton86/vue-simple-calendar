@@ -25,6 +25,7 @@
 			className="theme-default"
 			@show-date-change="setShowDate"
 			@click-date="setSelectedDate"
+			:starting-day-of-week="this.calendarDisplayPeriod == 'week' ? new Date().getDay() : 1"
 			:display-period-uom="this.calendarDisplayPeriod"
 			:display-period-count="this.calendarDisplayPeriod == 'week' ? 4 : 1"
 		></calendar-view>
